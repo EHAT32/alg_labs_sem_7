@@ -58,7 +58,6 @@ void heapify(std::vector<T>& vector, const int& heapSize, int i) {
 
 template<typename T>
 void heapSort(std::vector<T>& vector) {
-    // Build heap (rearrange array)
     int heapSize = vector.size();
     for (int i = heapSize / 2 - 1; i >= 0; i--)
         heapify(vector, heapSize, i);
