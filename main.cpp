@@ -40,23 +40,18 @@ void quickSort(std::vector<T>& vector){
 
 template<typename T>
 void heapify(std::vector<T>& vector, const int& heapSize, int i) {
-    int largest = i; // Initialize largest as root
-    int left = 2 * i + 1; // left = 2*i + 1
-    int right = 2 * i + 2; // right = 2*i + 2
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
 
-    // If left child is larger than root
     if (left < heapSize && vector[left] > vector[largest])
         largest = left;
 
-    // If right child is larger than largest so far
     if (right < heapSize && vector[right] > vector[largest])
         largest = right;
 
-    // If largest is not root
     if (largest != i) {
         std::swap(vector[i], vector[largest]);
-
-        // Recursively heapify the affected sub-tree
         heapify(vector, heapSize, largest);
     }
 }
@@ -68,12 +63,8 @@ void heapSort(std::vector<T>& vector) {
     for (int i = heapSize / 2 - 1; i >= 0; i--)
         heapify(vector, heapSize, i);
 
-    // One by one extract an element from heap
     for (int i = heapSize - 1; i >= 0; i--) {
-        // Move current root to end
         std::swap(vector[0], vector[i]);
-
-        // call max heapify on the reduced heap
         heapify(vector, i, 0);
     }
 }
