@@ -39,10 +39,10 @@ void quickSort(std::vector<T>& vector){
 }
 
 template<typename T>
-void heapify(std::vector<T>& vector, const int& heapSize, int i) {
-    int largest = i;
-    int left = 2 * i + 1;
-    int right = 2 * i + 2;
+void heapify(std::vector<T>& vector, const int& heapSize, int root) {
+    int largest = root;
+    int left = 2 * root + 1;
+    int right = 2 * root + 2;
 
     if (left < heapSize && vector[left] > vector[largest])
         largest = left;
@@ -50,8 +50,8 @@ void heapify(std::vector<T>& vector, const int& heapSize, int i) {
     if (right < heapSize && vector[right] > vector[largest])
         largest = right;
 
-    if (largest != i) {
-        std::swap(vector[i], vector[largest]);
+    if (largest != root) {
+        std::swap(vector[root], vector[largest]);
         heapify(vector, heapSize, largest);
     }
 }
