@@ -1,8 +1,5 @@
 #include "iostream"
 #include <array>
-#include <type_traits>
-#include <vcruntime.h>
-#include <vcruntime_typeinfo.h>
 #include <vector>
 #include <algorithm>
 
