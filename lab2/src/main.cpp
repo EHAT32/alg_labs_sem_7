@@ -20,7 +20,6 @@ vector<vector<float>> createGraph(const vector<vector<int>>& citiesVector){
         graph.push_back(row);
         row.clear();
     }
-
     return graph;
 }
 
