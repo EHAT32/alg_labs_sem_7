@@ -69,6 +69,7 @@ int main() {
         {1, 4},
         {2, 5},
         {10, 2},
+        {9, 8}
     };
     auto graph = createGraph(cities);
     // Solve the problem using dynamic programming
