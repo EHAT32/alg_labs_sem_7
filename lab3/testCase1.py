@@ -9,19 +9,12 @@ firstSimulation = Simulator()
   
 # Adding multiple roads  
 firstSimulation.createRoads([  
-    ((0, 1000), (0, 1000)),  
-    ((0, 1200), (300, 1000)),  
-    ((180, 61), (0, 61)),  
-    ((220, 56), (180, 61)),  
-    ((300, 31), (220, 56)),  
-    ((180, 61), (160, 97)),  
-    ((158, 131), (300, 131)),  
-    ((0, 179), (300, 179)),  
-    ((300, 181), (0, 181)),  
-    ((160, 101), (156, 180))  
+    ((10, 45), (150, 45)),
+    ((150, 45.5), (10, 45.5)),
+    ((75,20), (75, 60)),
+    ((75.5,60), (75.5, 20))
       
 ])  
-print(firstSimulation.roads) 
 # Starting the simulation  
 firstWindow = Window(firstSimulation)  
 firstWindow.loop()  

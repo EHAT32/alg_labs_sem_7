@@ -58,9 +58,16 @@ class Window:
                 # Handling mouse drag and wheel events  
                 ...  
   
-    def convert(self, x, y = None):  
+    def convert(self, x, y):  
         """Converting the simulation coordinates to screen coordinates"""  
-        ...  
+        #the goal is to convert max 160 x 90 coords into 1920 x 1080
+        height = 1080
+        width = 1920
+        max_x = 160
+        max_y = 90
+        screen_x = width * x / max_x
+        screen_y = height * y / max_y
+        return screen_x, screen_y
   
     def inverseConvert(self, x, y = None):  
         """Converting the screen coordinates to simulation coordinates"""  
@@ -101,7 +108,9 @@ class Window:
   
     def drawRoads(self, color=(128,128,128)):  
         for road in self.simulate.roads:
-            self.the_line(road.start, road.end, color) 
+            start= self.convert(*road.start)
+            end = self.convert(*road.end)
+            self.the_line(start, end, color) 
   
     def drawStatus(self):  
         """Drawing status text"""  

@@ -1,4 +1,5 @@
 from road import Road
+from copy import deepcopy
 
 class Simulator:
     def __init__(self, config = {}) -> None:
@@ -26,3 +27,29 @@ class Simulator:
     def createRoads(self, roadsList):
         for roadCoords in roadsList:
             self.createRoad(*roadCoords)
+
+    def update(self):  
+        # Updating every road  
+        for road in self.roads:  
+            road.update(self.dt)  
+  
+        # Checking the roads for out of bounds vehicle  
+        for road in self.roads:  
+            # If road does not have vehicles, then continue  
+            if len(road.vehicles) == 0: continue  
+            # If not  
+            vehicle = road.vehicles[0]  
+            # If the first vehicle is out of road bounds  
+            if vehicle.x >= road.length:  
+                # If vehicle has a next road  
+                if vehicle.currentRoadIndex + 1 < len(vehicle.path):  
+                    # Updating the current road to next road  
+                    vehicle.currentRoadIndex += 1  
+                    # Creating a copy and reseting some vehicle properties  
+                    newVehicle = deepcopy(vehicle)  
+                    newVehicle.x = 0  
+                    # Adding it to the next road  
+                    nextRoadIndex = vehicle.path[vehicle.currentRoadIndex]  
+                    self.roads[nextRoadIndex].vehicles.append(newVehicle)  
+                # In all cases, removing it from its road  
+                road.vehicles.popleft()  
