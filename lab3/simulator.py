@@ -23,6 +23,6 @@ class Simulator:
         self.roads.append(road)
         return road
     
-    def createMultipleRoads(self, roadsList):
-        for road in roadsList:
-            self.createRoad(*road)
+    def createRoads(self, roadsList):
+        for roadCoords in roadsList:
+            self.createRoad(*roadCoords)
