@@ -1,5 +1,6 @@
 from road import Road
 from copy import deepcopy
+from collections import deque
 
 class Simulator:
     def __init__(self, config = {}) -> None:
@@ -17,7 +18,7 @@ class Simulator:
         #frames count
         self.frameCount = 0
         #roads
-        self.roads = []
+        self.roads = deque()
 
     def createRoad(self, start, end):
         road = Road(start, end)
@@ -53,3 +54,4 @@ class Simulator:
                     self.roads[nextRoadIndex].vehicles.append(newVehicle)  
                 # In all cases, removing it from its road  
                 road.vehicles.popleft()  
+                

@@ -27,10 +27,16 @@ class Window:
         self.mouseLast = (0, 0)  
         self.mouseDown = False  
   
+    def run(self, stepsPerUpdate = 1):  
+        """Running the simulation by updating in every loop."""  
+        def loop(sim):  
+            sim.run(stepsPerUpdate)  
+        self.loop(loop)  
+  
     def loop(self, loop = None):  
         """Showing a window visualizing the simulation and runs the loop function."""  
         # Creating a pygame window  
-        self.screen = pygame.display.set_mode((self.the_width, self.the_height), pygame.FULLSCREEN)  
+        self.screen = pygame.display.set_mode((self.the_width, self.the_height), pygame.WINDOWMAXIMIZED)  
         pygame.display.flip()  
   
         # Fixed fps  
@@ -45,6 +51,8 @@ class Window:
         while running:  
             # Updating the simulation  
             if loop: loop(self.simulate)  
+            
+            self.simulate.update()
   
             # Drawing simulation  
             self.draw()  
@@ -55,8 +63,7 @@ class Window:
   
             # Handling all events  
             for event in pygame.event.get():  
-                # Handling mouse drag and wheel events  
-                ...  
+                ...
   
     def convert(self, x, y):  
         """Converting the simulation coordinates to screen coordinates"""  
@@ -87,9 +94,8 @@ class Window:
         """Drawing a rectangle."""  
         ...  
   
-    def the_circle(self, pos, radius, color, filled = True):  
-        """Drawing a circle"""  
-        ...  
+    def the_circle(self, pos, radius = 3, color = (0,0,255), filled = True):  
+        pygame.draw.circle(self.screen, color, pos, radius)
   
     def the_polygon(self, vertices, color, filled = True):  
         """Drawing a polygon"""  
@@ -108,9 +114,19 @@ class Window:
   
     def drawRoads(self, color=(128,128,128)):  
         for road in self.simulate.roads:
-            start= self.convert(*road.start)
+            start = self.convert(*road.start)
             end = self.convert(*road.end)
             self.the_line(start, end, color) 
+  
+    def drawVehicles(self):
+        for road in self.simulate.roads:
+            if len(road.vehicles) >= 1:
+                for car in road.vehicles:
+                    positionX, positionY = road.start
+                    positionX += car.x * road.cos
+                    positionY += car.x * road.sin
+                    position = self.convert(positionX, positionY)
+                    self.the_circle(position)
   
     def drawStatus(self):  
         """Drawing status text"""  
@@ -127,5 +143,6 @@ class Window:
         # Drawing roads  
         self.drawRoads()  
   
+        self.drawVehicles()
         # Drawing the status info  
         self.drawStatus()  
