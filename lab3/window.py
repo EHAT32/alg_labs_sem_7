@@ -66,7 +66,7 @@ class Window:
                 if event.type == pygame.KEYDOWN:
                     pygame.quit()
                     sys.exit()
-  
+
     def convert(self, x, y):  
         """Converting the simulation coordinates to screen coordinates"""  
         #the goal is to convert max 160 x 90 coords into 1920 x 1080
@@ -130,10 +130,23 @@ class Window:
                     position = self.convert(positionX, positionY)
                     self.the_circle(position)
   
+    def drawTime(self, x = 960, y = 20):
+        minutes = str(int(self.simulate.t // 60))
+        seconds = str(int(self.simulate.t % 60))
+        time = minutes + ':' + seconds
+        img = self.text_font.render('time : ' + time, True, (0, 0, 0))
+        self.screen.blit(img, (x, y)) 
 
-    def drawStatus(self, text, color, x, y):  
-        img = self.text_font.render(text, True, color)
-        self.screen.blit(img, (x, y))  
+    def drawNumOfCars(self, x = 960, y = 40):
+        n = 0
+        for road in self.simulate.roads:
+            n += len(road.vehicles)
+        img = self.text_font.render('cars : ' + str(n), True, (0, 0, 0))
+        self.screen.blit(img, (x, y))
+
+    def drawStatus(self):  
+        self.drawTime()
+        self.drawNumOfCars()
   
     def draw(self):  
         # Filling the background  
@@ -149,4 +162,4 @@ class Window:
   
         self.drawVehicles()
         # Drawing the status info  
-        self.drawStatus(f'time: {self.simulate.t:.03}', (0,0,0), 300, 200)  
+        self.drawStatus()  

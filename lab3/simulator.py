@@ -13,7 +13,7 @@ class Simulator:
 
     def setDefaultConfig(self):
         #time
-        self.t = .0
+        self.t = 1400.0
         #time step
         self.dt = 1/60
         #frames count
@@ -62,6 +62,9 @@ class Simulator:
                 road.vehicles.popleft()  
 
         self.t += self.dt
+
+        if self.t >= 1440:
+            self.t = 0
 
         for gen in self.vehicleGens:
             gen.update()

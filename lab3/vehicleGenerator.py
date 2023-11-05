@@ -30,7 +30,7 @@ class VehicleGenerators:
   
     def update(self):  
         """Adding vehicles"""  
-        if self.simulation.t - self.lastAddedTime >= 60 / self.vehicleRate:  
+        if abs(self.simulation.t - self.lastAddedTime) >= 60 / self.vehicleRate:  
             # If time elapsed after the last added vehicle is  
             # greater than vehicle period; then generate a vehicle  
             road = self.simulation.roads[self.upcomingVehicle.path[0]]        
