@@ -15,6 +15,11 @@ firstSimulation.createGen({
         [1, {"path" : [4]}]  
     ]  
 })  
+roads = firstSimulation.roads
+trafficRoads = [[roads[0], roads[2]]]
+trafficSignal = TrafficSignal(trafficRoads)
+firstSimulation.createTrafficSignals(trafficSignal)
+
 # Starting the simulation  
 firstWindow = Window(firstSimulation)  
 firstWindow.loop()  

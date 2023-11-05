@@ -85,12 +85,11 @@ class Window:
     def the_background(self, r, g, b):  
         self.screen.fill(self.the_bgColor)
           
-    def the_line(self, start_pos, end_pos, color):  
-        pygame.draw.line(self.screen, color, start_pos, end_pos, 5)
+    def the_line(self, start_pos, end_pos, color, width = 5):  
+        pygame.draw.line(self.screen, color, start_pos, end_pos, width)
   
-    def the_rect(self, pos, size, color):  
-        """Drawing a rectangle."""  
-        ...  
+    def the_rect(self, x1, y1, width, height, color):  
+        pygame.draw.rect(self.screen, color, pygame.Rect(x1, y1, width, height))
   
     def the_box(self, pos, size, color):  
         """Drawing a rectangle."""  
@@ -147,7 +146,27 @@ class Window:
     def drawStatus(self):  
         self.drawTime()
         self.drawNumOfCars()
-  
+        self.drawCursor()
+
+    def drawTrafficLights(self):
+        for road in self.simulate.roads:
+            if road.hasTrafficSignal:
+                pos = road.end
+                x1, y1 = self.convert(pos[0], pos[1])
+                x1 -= 2 * road.sin
+                x2 = x1 + 4 * road.sin
+                y1 -= 2 * road.cos
+                y2 = y1 + 4 * road.cos
+                if road.trafficSignalState:
+                    self.the_line((x1, y1), (x2, y2), (0, 255, 0), 5)
+                else:
+                    self.the_line((x1, y1), (x2, y2), (255, 0, 0), 5)
+
+    def drawCursor(self):
+        x, y = pygame.mouse.get_pos()
+        img = self.text_font.render(f'({x}, {y})', True, (0, 0, 0))
+        self.screen.blit(img, (x, y)) 
+
     def draw(self):  
         # Filling the background  
         self.the_background(*self.the_bgColor)  
@@ -160,6 +179,8 @@ class Window:
         # Drawing roads  
         self.drawRoads()  
   
-        self.drawVehicles()
         # Drawing the status info  
+        self.drawTrafficLights()
+        self.drawVehicles()
+
         self.drawStatus()  

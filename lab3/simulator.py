@@ -13,7 +13,7 @@ class Simulator:
 
     def setDefaultConfig(self):
         #time
-        self.t = 1400.0
+        self.t = .0
         #time step
         self.dt = 1/60
         #frames count
@@ -22,6 +22,11 @@ class Simulator:
         self.roads = deque()
 
         self.vehicleGens = deque()
+
+        self.trafficSignals = deque()
+
+    def createTrafficSignals(self, trafficSignal):
+            self.trafficSignals.append(trafficSignal)
 
     def createRoad(self, start, end):
         road = Road(start, end)
@@ -61,10 +66,14 @@ class Simulator:
                 # In all cases, removing it from its road  
                 road.vehicles.popleft()  
 
+        for signal in self.trafficSignals:  
+            signal.update(self)  
+
         self.t += self.dt
 
         if self.t >= 1440:
             self.t = 0
+
 
         for gen in self.vehicleGens:
             gen.update()

@@ -4,3 +4,4 @@ from window import *
 from vehicle import *
 from roadNet import *
 from vehicleGenerator import *
+from trafficLight import *
