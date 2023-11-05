@@ -1,7 +1,7 @@
 import pygame
 from pygame import gfxdraw
 import numpy as np
-
+import sys
 class Window:  
     def __init__(self, simulate, config = {}):  
         # Simulation to draw  
@@ -36,7 +36,7 @@ class Window:
     def loop(self, loop = None):  
         """Showing a window visualizing the simulation and runs the loop function."""  
         # Creating a pygame window  
-        self.screen = pygame.display.set_mode((self.the_width, self.the_height), pygame.WINDOWMAXIMIZED)  
+        self.screen = pygame.display.set_mode((self.the_width, self.the_height), pygame.FULLSCREEN)  
         pygame.display.flip()  
   
         # Fixed fps  
@@ -63,7 +63,9 @@ class Window:
   
             # Handling all events  
             for event in pygame.event.get():  
-                ...
+                if event.type == pygame.KEYDOWN:
+                    pygame.quit()
+                    sys.exit()
   
     def convert(self, x, y):  
         """Converting the simulation coordinates to screen coordinates"""  
@@ -128,8 +130,10 @@ class Window:
                     position = self.convert(positionX, positionY)
                     self.the_circle(position)
   
-    def drawStatus(self):  
-        """Drawing status text"""  
+
+    def drawStatus(self, text, color, x, y):  
+        img = self.text_font.render(text, True, color)
+        self.screen.blit(img, (x, y))  
   
     def draw(self):  
         # Filling the background  
@@ -145,4 +149,4 @@ class Window:
   
         self.drawVehicles()
         # Drawing the status info  
-        self.drawStatus()  
+        self.drawStatus(f'time: {self.simulate.t:.03}', (0,0,0), 300, 200)  

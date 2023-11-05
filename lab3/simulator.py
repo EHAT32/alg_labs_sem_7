@@ -1,6 +1,7 @@
 from road import Road
 from copy import deepcopy
 from collections import deque
+from vehicleGenerator import VehicleGenerators
 
 class Simulator:
     def __init__(self, config = {}) -> None:
@@ -20,6 +21,8 @@ class Simulator:
         #roads
         self.roads = deque()
 
+        self.vehicleGens = deque()
+
     def createRoad(self, start, end):
         road = Road(start, end)
         self.roads.append(road)
@@ -28,6 +31,9 @@ class Simulator:
     def createRoads(self, roadsList):
         for roadCoords in roadsList:
             self.createRoad(*roadCoords)
+
+    def createGen(self, genConfig):
+        self.vehicleGens.append(VehicleGenerators(self, genConfig))
 
     def update(self):  
         # Updating every road  
@@ -54,4 +60,9 @@ class Simulator:
                     self.roads[nextRoadIndex].vehicles.append(newVehicle)  
                 # In all cases, removing it from its road  
                 road.vehicles.popleft()  
-                
+
+        self.t += self.dt
+
+        for gen in self.vehicleGens:
+            gen.update()
+
