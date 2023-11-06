@@ -20,7 +20,7 @@ class Simulator:
         #frames count
         self.frameCount = 0
         #roads
-        self.roads = deque()
+        self.roads = {}
 
         self.vehicleGens = deque()
 
@@ -31,8 +31,8 @@ class Simulator:
 
     def createRoad(self, start, end, startCross, endCross):
         road = Road(start, end, startCross, endCross)
-        self.roads.append(road)
-        return road
+        self.roads[(startCross, endCross)] = road
+        # return road
     
     def createRoads(self, roadsList):
         for roadCoords in roadsList:
@@ -56,11 +56,13 @@ class Simulator:
 
     def update(self):  
         # Updating every road  
-        for road in self.roads:  
+        for roadKey in self.roads:
+            road = self.roads[roadKey]  
             road.update(self.dt)  
   
         # Checking the roads for out of bounds vehicle  
-        for road in self.roads:  
+        for roadKey in self.roads:  
+            road = self.roads[roadKey]
             # If road does not have vehicles, then continue  
             if len(road.vehicles) == 0: continue  
             # If not  

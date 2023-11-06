@@ -114,13 +114,15 @@ class Window:
         """Drawing a grid"""  
   
     def drawRoads(self, color=(128,128,128)):  
-        for road in self.simulate.roads:
+        for roadKey in self.simulate.roads:
+            road = self.simulate.roads[roadKey]
             start = self.convert(*road.start)
             end = self.convert(*road.end)
             self.the_line(start, end, color) 
   
     def drawVehicles(self):
-        for road in self.simulate.roads:
+        for roadKey in self.simulate.roads:
+            road = self.simulate.roads[roadKey]
             if len(road.vehicles) >= 1:
                 for car in road.vehicles:
                     positionX, positionY = road.start
@@ -138,7 +140,8 @@ class Window:
 
     def drawNumOfCars(self, x = 960, y = 40):
         n = 0
-        for road in self.simulate.roads:
+        for roadKey in self.simulate.roads:
+            road = self.simulate.roads[roadKey]
             n += len(road.vehicles)
         img = self.text_font.render('cars : ' + str(n), True, (0, 0, 0))
         self.screen.blit(img, (x, y))
@@ -149,7 +152,8 @@ class Window:
         self.drawCursor()
 
     def drawTrafficLights(self):
-        for road in self.simulate.roads:
+        for roadkey in self.simulate.roads:
+            road = self.simulate.roads[roadkey]
             if road.hasTrafficSignal:
                 pos = road.end
                 x1, y1 = self.convert(pos[0], pos[1])
