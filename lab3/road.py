@@ -2,10 +2,11 @@ from scipy.spatial import distance
 from collections import deque
 
 class Road:
-    def __init__(self, start, end) -> None:
+    def __init__(self, start, end, startCross, endCross) -> None:
         self.start = start
         self.end = end
-        
+        self.startCross = startCross #idx of a vertex from the graph
+        self.endCross = endCross
         self.initProperties()
 
     def initProperties(self):

@@ -13,11 +13,11 @@ class Vehicle:
         self.initProperties()  
   
     def set_default_config(self):  
-        self.l = 2  
-        self.s_0 = 2  
+        self.l = 1  
+        self.s_0 = 0.5  
         self.T = 1  
         self.vMax = 16.6  
-        self.aMax = 20  
+        self.aMax = 100  
         self.bMax = 4.61  
   
         self.path = []  
@@ -53,6 +53,7 @@ class Vehicle:
   
         if self.stopped:   
             self.a = - self.bMax * self.v / self.vMax  
+
           
     def stopVehicle(self):  
         self.stopped = True  

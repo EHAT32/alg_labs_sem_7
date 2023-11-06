@@ -2,11 +2,12 @@ from road import Road
 from copy import deepcopy
 from collections import deque
 from vehicleGenerator import VehicleGenerators
+import numpy as np
+from scipy.spatial import distance
 
 class Simulator:
     def __init__(self, config = {}) -> None:
         self.setDefaultConfig()
-
         #update vals
         for attr, val in config.items():
             setattr(self, attr, val)
@@ -28,14 +29,27 @@ class Simulator:
     def createTrafficSignals(self, trafficSignal):
             self.trafficSignals.append(trafficSignal)
 
-    def createRoad(self, start, end):
-        road = Road(start, end)
+    def createRoad(self, start, end, startCross, endCross):
+        road = Road(start, end, startCross, endCross)
         self.roads.append(road)
         return road
     
     def createRoads(self, roadsList):
         for roadCoords in roadsList:
             self.createRoad(*roadCoords)
+
+    def createRoadsFromGraph(self, graph):
+        self.graph = graph
+        for idx in range(len(graph)):
+        # for vertex in graph:
+            start = (graph[idx][0][0], graph[idx][0][1])
+            if len(graph[idx][1]) > 0:
+                for vertexIdx in graph[idx][1]:
+                    end = (graph[vertexIdx][0][0], graph[vertexIdx][0][1])
+                    length = distance.euclidean(start, end)
+                    sin = (end[1] - start[1]) / length
+                    cos = (end[0] - start[0]) / length
+                    self.createRoad((start[0] + 0.3 * sin, start[1] + 0.3 * cos), (end[0] + 0.3 * sin, end[1] + 0.3 * cos), idx, vertexIdx)
 
     def createGen(self, genConfig):
         self.vehicleGens.append(VehicleGenerators(self, genConfig))

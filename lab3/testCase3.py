@@ -16,7 +16,7 @@ firstSimulation.createGen({
     ]  
 })  
 roads = firstSimulation.roads
-trafficRoads = [[roads[0], roads[2]]]
+trafficRoads = [[roads[0], roads[2]], [roads[1], roads[3]]]
 trafficSignal = TrafficSignal(trafficRoads)
 firstSimulation.createTrafficSignals(trafficSignal)
 
