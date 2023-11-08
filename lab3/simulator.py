@@ -4,6 +4,7 @@ from collections import deque
 from vehicleGenerator import VehicleGenerators
 import numpy as np
 from scipy.spatial import distance
+import random
 
 class Simulator:
     def __init__(self, config = {}) -> None:
@@ -69,6 +70,21 @@ class Simulator:
             vehicle = road.vehicles[0]  
             # If the first vehicle is out of road bounds  
             if vehicle.x >= road.length:  
+                #if vehicle just wanders:
+                if len(vehicle.path) == 1:
+                    vehicle.currentRoadIndex = 1
+                    newVehicle = deepcopy(vehicle)
+                    newVehicle.x = 0
+                    crossRoad = self.graph[road.endCross]
+                    if len(crossRoad[1]) > 0:
+                        if newVehicle.decideToRide():
+                            carNums = [len(self.roads[(road.endCross, k)].vehicles) for k in crossRoad[1]]
+                            nextCross = crossRoad[1][np.argmin(carNums)]
+                            newVehicle.moodToRide -= 10
+                            self.roads[(road.endCross, nextCross)].vehicles.append(newVehicle)
+                        else:
+                            pass
+
                 # If vehicle has a next road  
                 if vehicle.currentRoadIndex + 1 < len(vehicle.path):  
                     # Updating the current road to next road  

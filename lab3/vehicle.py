@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 class Vehicle:  
     def __init__(self, config = {}):  
@@ -22,6 +23,7 @@ class Vehicle:
   
         self.path = []  
         self.currentRoadIndex = 0  
+        self.moodToRide = 100
   
         self.x = 0  
         self.v = self.vMax  
@@ -54,6 +56,11 @@ class Vehicle:
         if self.stopped:   
             self.a = - self.bMax * self.v / self.vMax  
 
+    def decideToRide(self):
+        self.moodToRide -= 5
+        if self.moodToRide < 0:
+            self.moodToRide = 0
+        return random.randrange(100) < self.moodToRide
           
     def stopVehicle(self):  
         self.stopped = True  
