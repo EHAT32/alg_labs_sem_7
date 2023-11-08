@@ -15,7 +15,7 @@ class TrafficSignal:
         self.slowDistance = 10  
         self.slowSpeed = 8.3
         self.slowFactor = 10  
-        self.stopDistance = 5  
+        self.stopDistance = 2  
   
         self.currentCycleIndex = 0  
         self.last_t = 0  

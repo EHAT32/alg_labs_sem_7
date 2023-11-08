@@ -77,7 +77,7 @@ class Window:
         screen_x = width * x / max_x
         screen_y = height * y / max_y
         return screen_x, screen_y
-  
+
     def inverseConvert(self, x, y = None):  
         """Converting the screen coordinates to simulation coordinates"""  
         ...  
@@ -113,13 +113,24 @@ class Window:
     def drawGrid(self, unit = 50, color = (150, 150, 150)):  
         """Drawing a grid"""  
   
+    def the_text(self, text, x, y, color = (0, 0, 0)):
+        img = self.text_font.render(text, True, color)
+        self.screen.blit(img, (x, y))
     def drawRoads(self, color=(128,128,128)):  
         for roadKey in self.simulate.roads:
             road = self.simulate.roads[roadKey]
             start = self.convert(*road.start)
             end = self.convert(*road.end)
             self.the_line(start, end, color) 
-  
+            # self.the_text(str(road.startCross), *self.convert(*road.start))
+            # self.the_text(str(road.endCross), *self.convert(*road.end))
+    
+    def drawCrossRoads(self):
+        i = 0
+        for CrossRoad in self.simulate.graph:
+            self.the_text(str(i), *self.convert(*CrossRoad[0]))
+            i +=1
+
     def drawVehicles(self):
         for roadKey in self.simulate.roads:
             road = self.simulate.roads[roadKey]
@@ -135,16 +146,15 @@ class Window:
         minutes = str(int(self.simulate.t // 60))
         seconds = str(int(self.simulate.t % 60))
         time = minutes + ':' + seconds
-        img = self.text_font.render('time : ' + time, True, (0, 0, 0))
-        self.screen.blit(img, (x, y)) 
+        self.the_text('time : ' + time, x, y) 
 
     def drawNumOfCars(self, x = 960, y = 40):
         n = 0
         for roadKey in self.simulate.roads:
             road = self.simulate.roads[roadKey]
             n += len(road.vehicles)
-        img = self.text_font.render('cars : ' + str(n), True, (0, 0, 0))
-        self.screen.blit(img, (x, y))
+        self.the_text('cars : ' + str(n), x, y)
+
 
     def drawStatus(self):  
         self.drawTime()
@@ -152,19 +162,22 @@ class Window:
         self.drawCursor()
 
     def drawTrafficLights(self):
+        trafficOffset = 0.75
         for roadkey in self.simulate.roads:
             road = self.simulate.roads[roadkey]
             if road.hasTrafficSignal:
-                pos = road.end
-                x1, y1 = self.convert(pos[0], pos[1])
+                x1, y1 = road.end
+                x1 -= trafficOffset * road.cos
+                y1 -= trafficOffset * road.sin
+                x1, y1 = self.convert(x1, y1)
                 x1 -= 2 * road.sin
                 x2 = x1 + 4 * road.sin
                 y1 -= 2 * road.cos
                 y2 = y1 + 4 * road.cos
                 if road.trafficSignalState:
-                    self.the_line((x1, y1), (x2, y2), (0, 255, 0), 5)
+                    self.the_line((x1, y1), (x2, y2), (0, 255, 0), 4)
                 else:
-                    self.the_line((x1, y1), (x2, y2), (255, 0, 0), 5)
+                    self.the_line((x1, y1), (x2, y2), (255, 0, 0), 4)
 
     def drawCursor(self):
         x, y = pygame.mouse.get_pos()
@@ -182,9 +195,8 @@ class Window:
   
         # Drawing roads  
         self.drawRoads()  
-  
+        self.drawCrossRoads()
         # Drawing the status info  
         self.drawTrafficLights()
         self.drawVehicles()
-
         self.drawStatus()  

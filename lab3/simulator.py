@@ -42,15 +42,15 @@ class Simulator:
     def createRoadsFromGraph(self, graph):
         self.graph = graph
         for idx in range(len(graph)):
-        # for vertex in graph:
-            start = (graph[idx][0][0], graph[idx][0][1])
+            start = graph[idx][0]
             if len(graph[idx][1]) > 0:
                 for vertexIdx in graph[idx][1]:
                     end = (graph[vertexIdx][0][0], graph[vertexIdx][0][1])
                     length = distance.euclidean(start, end)
                     sin = (end[1] - start[1]) / length
                     cos = (end[0] - start[0]) / length
-                    self.createRoad((start[0] + 0.3 * sin, start[1] + 0.3 * cos), (end[0] + 0.3 * sin, end[1] + 0.3 * cos), idx, vertexIdx)
+                    self.createRoad((start[0] - 0.3 * sin, start[1] + 0.3 * cos), (end[0] - 0.3 * sin, end[1] + 0.3 * cos), idx, vertexIdx)
+
 
     def createGen(self, genConfig):
         self.vehicleGens.append(VehicleGenerators(self, genConfig))
