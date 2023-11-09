@@ -27,7 +27,6 @@ togliattiCity.createTrafficSignals(trafficSignal1)
 togliattiCity.createTrafficSignals(trafficSignal2)
 togliattiCity.createTrafficSignals(trafficSignal3)
 
-
 # Starting the simulation  
 firstWindow = Window(togliattiCity)  
 firstWindow.loop()  

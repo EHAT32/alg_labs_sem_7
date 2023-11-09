@@ -16,7 +16,7 @@ class Window:
           
     def set_default_config(self):  
         """Setting the default configuration"""  
-        self.the_width = 1920  
+        self.the_width = 1920
         self.the_height = 1080  
         self.the_bgColor = (250, 250, 250)  
   
@@ -161,6 +161,7 @@ class Window:
         self.drawTime()
         self.drawNumOfCars()
         self.drawCursor()
+        self.drawRoadCapacity()
 
     def drawTrafficLights(self):
         trafficOffset = 0.75
@@ -179,6 +180,18 @@ class Window:
                     self.the_line((x1, y1), (x2, y2), (0, 255, 0), 4)
                 else:
                     self.the_line((x1, y1), (x2, y2), (255, 0, 0), 4)
+
+    def drawRoadCapacity(self, x = 0, y = 0):
+        x, y = self.convert(x, y)
+        carLen = 1.5
+        for road in self.simulate.roads:
+            capacity = carLen * len(self.simulate.roads[road].vehicles) / self.simulate.roads[road].length * 100
+            self.the_text(str(road) + ' : ' + str(capacity) + '%', x, y)
+            y += 20
+            if y >= self.the_height:
+                y = self.the_height / 2
+                x += 30
+        
 
     def drawCursor(self):
         x, y = pygame.mouse.get_pos()
@@ -200,4 +213,4 @@ class Window:
         # Drawing the status info  
         self.drawTrafficLights()
         self.drawVehicles()
-        self.drawStatus()  
+        self.drawStatus() 
