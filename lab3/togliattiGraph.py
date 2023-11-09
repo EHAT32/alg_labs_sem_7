@@ -1,14 +1,14 @@
 import numpy as np
 from scipy.spatial import distance
 
-manhattanGraph = np.array([[(40, 20), (1, 3)],
+togliattiGraph = np.array([[(40, 20), (1, 3)],
                            [(60, 20), (0, 2, 4)],
                            [(60, 40), (1, 3, 5, 6)],
                            [(40, 40), (0, 2, 7)],
                            [(80, 20), (1, 5)],
                            [(80, 40), (2, 4)],
                            [(60, 60), (2, )],
-                           [(20, 40), (3, )]])
+                           [(20, 40), (3, )]], dtype = object)
 
 # def createRoadsFromGraph(graph):
 #     roads = []
@@ -25,4 +25,4 @@ manhattanGraph = np.array([[(40, 20), (1, 3)],
 
 #     return roads
 
-# manhRoads = createRoadsFromGraph(manhattanGraph)
+# manhRoads = createRoadsFromGraph(togliattiGraph)

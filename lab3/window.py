@@ -70,8 +70,9 @@ class Window:
     def convert(self, x, y):  
         """Converting the simulation coordinates to screen coordinates"""  
         #the goal is to convert max 160 x 90 coords into 1920 x 1080
-        height = 1080
-        width = 1920
+        width, height = pygame.display.get_surface().get_size()
+        # height = 1080
+        # width = 1920
         max_x = 160
         max_y = 90
         screen_x = width * x / max_x

@@ -31,7 +31,7 @@ class TrafficSignal:
   
     def update(self, simulation):  
        # Going through all cycles every cycleLength and repeats  
-       cycleLength = 30  
+       cycleLength = 15  
        m = (simulation.t // cycleLength) % 2  
        self.currentCycleIndex = int(m)   
   
