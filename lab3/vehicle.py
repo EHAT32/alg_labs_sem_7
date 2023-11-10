@@ -23,7 +23,7 @@ class Vehicle:
   
         self.path = []  
         self.currentRoadIndex = 0  
-        self.moodToRide = 100
+        self.moodToRide = 105
   
         self.x = 0  
         self.v = self.vMax  

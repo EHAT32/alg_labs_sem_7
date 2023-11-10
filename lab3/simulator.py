@@ -79,8 +79,9 @@ class Simulator:
                     if len(crossRoad[1]) > 0:
                         if newVehicle.decideToRide():
                             carNums = [len(self.roads[(road.endCross, k)].vehicles) for k in crossRoad[1]]
-                            nextCross = crossRoad[1][np.argmin(carNums)]
-                            newVehicle.moodToRide -= 10
+                            minNum = np.min(carNums)
+                            minIdx = [i for i, x in enumerate(carNums) if x == minNum]
+                            nextCross = crossRoad[1][random.choice(minIdx)]
                             self.roads[(road.endCross, nextCross)].vehicles.append(newVehicle)
                         else:
                             pass

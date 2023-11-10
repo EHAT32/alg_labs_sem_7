@@ -34,7 +34,7 @@ class VehicleGenerators:
             # If time elapsed after the last added vehicle is  
             # greater than vehicle period; then generate a vehicle  
             road = self.simulation.roads[self.upcomingVehicle.path[0]]        
-            if len(road.vehicles) == 0 or road.vehicles[-1].x > self.upcomingVehicle.s_0 + self.upcomingVehicle.l:  
+            if len(road.vehicles) == 0 or road.vehicles[-1].x > 2 * (self.upcomingVehicle.s_0 + self.upcomingVehicle.l):  
                 # If there is space for the generated vehicle; then add it  
                 self.upcomingVehicle.timeAdded = self.simulation.t  
                 road.vehicles.append(self.upcomingVehicle)  
