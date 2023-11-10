@@ -182,20 +182,25 @@ class Window:
                 else:
                     self.the_line((x1, y1), (x2, y2), (255, 0, 0), 4)
 
-    def drawRoadCapacity(self, x = 0, y = 0):
+    def drawRoadCapacity(self, x = 0, y = 0, trafficCycle = 15, highCapacity = 60):
         x, y = self.convert(x, y)
         carLen = 1.5
         for roadIdx in self.simulate.roads:
             road = self.simulate.roads[roadIdx]
-            capacity = carLen * len(road.vehicles) / road * 100
+            capacity = carLen * len(road.vehicles) / road.length * 100
             self.the_text(str(roadIdx) + ' : ' + str(capacity) + '%', x, y)
+            if road.hasTrafficSignal and capacity >= highCapacity:
+                car = road.vehicles[-1]
+                if not road.trafficSignalState:
+                    additionalTime = trafficCycle - (self.simulate.t % trafficCycle)
+                else:
+                    additionalTime = 0
+                timeToDissolve = round((road.length - car.x) / car.vMax + additionalTime, 1)
+                self.the_text('dissolving in: ' + str(timeToDissolve), x + 200, y)
             y += 20
             if y >= self.the_height:
                 y = self.the_height / 2
                 x += 30
-            if road.hasTrafficSignal and capacity > 70:
-                timeToDissolve = 0
-                ...
         
 
     def drawCursor(self):
