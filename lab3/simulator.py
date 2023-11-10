@@ -22,7 +22,6 @@ class Simulator:
         self.frameCount = 0
         #roads
         self.roads = {}
-
         self.vehicleGens = deque()
 
         self.trafficSignals = deque()
