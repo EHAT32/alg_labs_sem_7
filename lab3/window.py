@@ -117,6 +117,7 @@ class Window:
     def the_text(self, text, x, y, color = (0, 0, 0)):
         img = self.text_font.render(text, True, color)
         self.screen.blit(img, (x, y))
+        
     def drawRoads(self, color=(128,128,128)):  
         for roadKey in self.simulate.roads:
             road = self.simulate.roads[roadKey]
@@ -130,7 +131,7 @@ class Window:
         i = 0
         for CrossRoad in self.simulate.graph:
             self.the_text(str(i), *self.convert(*CrossRoad[0]))
-            i +=1
+            i += 1
 
     def drawVehicles(self):
         for roadKey in self.simulate.roads:
@@ -184,13 +185,17 @@ class Window:
     def drawRoadCapacity(self, x = 0, y = 0):
         x, y = self.convert(x, y)
         carLen = 1.5
-        for road in self.simulate.roads:
-            capacity = carLen * len(self.simulate.roads[road].vehicles) / self.simulate.roads[road].length * 100
-            self.the_text(str(road) + ' : ' + str(capacity) + '%', x, y)
+        for roadIdx in self.simulate.roads:
+            road = self.simulate.roads[roadIdx]
+            capacity = carLen * len(road.vehicles) / road * 100
+            self.the_text(str(roadIdx) + ' : ' + str(capacity) + '%', x, y)
             y += 20
             if y >= self.the_height:
                 y = self.the_height / 2
                 x += 30
+            if road.hasTrafficSignal and capacity > 70:
+                timeToDissolve = 0
+                ...
         
 
     def drawCursor(self):
