@@ -188,7 +188,7 @@ class Window:
         for roadIdx in self.simulate.roads:
             road = self.simulate.roads[roadIdx]
             capacity = carLen * len(road.vehicles) / road.length * 100
-            self.the_text(str(roadIdx) + ' : ' + str(capacity) + '%', x, y)
+            self.the_text(str(roadIdx) + ' : ' + str(len(road.vehicles)) + ' ' + '(' + str(capacity) + '%' + ')', x, y)
             if road.hasTrafficSignal and capacity >= highCapacity:
                 car = road.vehicles[-1]
                 if not road.trafficSignalState:
