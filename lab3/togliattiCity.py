@@ -7,11 +7,11 @@ togliattiCity.createRoadsFromGraph(togliattiGraph)
 
 
 togliattiCity.createGen({  
-    'vehicleRate' : 95,  
+    'vehicleRate' : 40,  
     'vehicles' : [  
         [1, {"path" : [(0, 1)]}],  
         [1, {"path" : [(1, 2)]}],  
-        [1, {"path" : [(1, 2)]}],  
+        [1, {"path" : [(7, 3)]}],  
         [1, {"path" : [(2, 3)]}],  
         [1, {"path" : [(3, 2)]}],
         [1, {"path" : [(4, 1)]}]  

@@ -15,7 +15,7 @@ class Simulator:
 
     def setDefaultConfig(self):
         #time
-        self.t = .0
+        self.t = 520.0
         #time step
         self.dt = 1/60
         #frames count
@@ -101,12 +101,13 @@ class Simulator:
         for signal in self.trafficSignals:  
             signal.update(self)  
 
+        for gen in self.vehicleGens:
+            gen.update()
+            if (self.t >= 540 and self.t <= 600) or (self.t >= 1020 and self.t <= 1080):
+                gen.vehicleRate = 120
+            else:
+                gen.vehicleRate = 40
         self.t += self.dt
 
         if self.t >= 1440:
             self.t = 0
-
-
-        for gen in self.vehicleGens:
-            gen.update()
-
