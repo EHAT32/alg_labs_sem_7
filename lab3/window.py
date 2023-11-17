@@ -32,7 +32,7 @@ class Window:
         def loop(sim):  
             sim.run(stepsPerUpdate)  
         self.loop(loop)  
-  
+
     def loop(self, loop = None):  
         """Showing a window visualizing the simulation and runs the loop function."""  
         # Creating a pygame window  
@@ -157,6 +157,10 @@ class Window:
             n += len(road.vehicles)
         self.the_text('cars : ' + str(n), x, y)
 
+    def findTopLoadedRoads(self):
+        roads = self.simulate.roads
+        capacityDict = {road:len(self.simulate.roads[road].vehicles) for road in self.simulate.roads if len(self.simulate.roads[road].vehicles) != 0}
+        return sorted(capacityDict.items(), key = lambda x : x[1], reverse=True)
 
     def drawStatus(self):  
         self.drawTime()
@@ -185,10 +189,15 @@ class Window:
     def drawRoadCapacity(self, x = 0, y = 0, trafficCycle = 10, highCapacity = 60):
         x, y = self.convert(x, y)
         carLen = 1.5
-        for roadIdx in self.simulate.roads:
+        # if self.simulate.t % 5 == 0:
+        topLoaded = self.findTopLoadedRoads()
+        # for roadIdx in self.simulate.roads:
+        for roadTuple in topLoaded:
+            roadIdx = roadTuple[0]
+            absCapacity = roadTuple[1]
             road = self.simulate.roads[roadIdx]
-            capacity = carLen * len(road.vehicles) / road.length * 100
-            self.the_text(str(roadIdx) + ' : ' + str(len(road.vehicles)) + ' ' + '(' + str(capacity) + '%' + ')', x, y)
+            capacity = carLen * absCapacity / road.length * 100
+            self.the_text(str(roadIdx) + ' : ' + str(absCapacity) + ' ' + '(' + str(capacity) + '%' + ')', x, y)
             if road.hasTrafficSignal and capacity >= highCapacity:
                 car = road.vehicles[-1]
                 if not road.trafficSignalState:
