@@ -182,7 +182,7 @@ class Window:
                 else:
                     self.the_line((x1, y1), (x2, y2), (255, 0, 0), 4)
 
-    def drawRoadCapacity(self, x = 0, y = 0, trafficCycle = 15, highCapacity = 60):
+    def drawRoadCapacity(self, x = 0, y = 0, trafficCycle = 10, highCapacity = 60):
         x, y = self.convert(x, y)
         carLen = 1.5
         for roadIdx in self.simulate.roads:

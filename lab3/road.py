@@ -29,7 +29,7 @@ class Road:
         return True  
 
     #update vehicles of the road
-    def update(self, dt):  
+    def update(self, dt, nextRoad = None, nextRoadAmount = 12):  
         num = len(self.vehicles)  
           
         if num > 0:  
@@ -42,10 +42,21 @@ class Road:
 
             if self.trafficSignalState:  
                 # In case the traffic signal is green or does not exist  
-                # Then let the vehicles pass  
-                self.vehicles[0].unstopVehicle()  
-                for the_vehicle in self.vehicles:  
-                    the_vehicle.fastVehicle()  
+                # Then let the vehicles pass    
+                if nextRoad is not None:
+                    if len(nextRoad.vehicles) >= nextRoadAmount and self.vehicles[0].x >= self.length - self.trafficSignal.stopDistance / 2:
+                        self.vehicles[0].v = 0
+                        self.vehicles[0].stopVehicle()
+                        # for the_vehicle in self.vehicles:
+                        #     the_vehicle.slowVehicle(self.trafficSignal.slowSpeed)
+                    else:
+                        self.vehicles[0].unstopVehicle()  
+                        for the_vehicle in self.vehicles:  
+                            the_vehicle.fastVehicle()
+                else:
+                    self.vehicles[0].unstopVehicle()  
+                    for the_vehicle in self.vehicles:  
+                        the_vehicle.fastVehicle()
             else:  
                 # In case the traffic signal is red  
                 if self.vehicles[0].x >= self.length - self.trafficSignal.slowDistance:  

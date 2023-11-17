@@ -58,7 +58,13 @@ class Simulator:
         # Updating every road  
         for roadKey in self.roads:
             road = self.roads[roadKey]  
-            road.update(self.dt)  
+            if len(road.vehicles) > 0 and road.vehicles[0].currentRoadIndex + 1 < len(road.vehicles[0].path):
+                vehicle = road.vehicles[0]
+                nextRoad = self.roads[vehicle.path[vehicle.currentRoadIndex + 1]]
+            else:
+                road.update(self.dt)
+                nextRoad = None
+            road.update(self.dt, nextRoad)  
   
         # Checking the roads for out of bounds vehicle  
         for roadKey in self.roads:  
@@ -104,7 +110,7 @@ class Simulator:
         for gen in self.vehicleGens:
             gen.update()
             if (self.t >= 540 and self.t <= 600) or (self.t >= 1020 and self.t <= 1080):
-                gen.vehicleRate = 120
+                gen.vehicleRate = 180
             else:
                 gen.vehicleRate = 40
         self.t += self.dt

@@ -14,7 +14,10 @@ togliattiCity.createGen({
         [1, {"path" : [(4, 1), (1, 2), (2, 6)]}],  
         [1, {"path" : [(6, 2), (2, 5)]}],  
         [1, {"path" : [(6, 2), (2, 3), (3, 0)]}],
-        [1, {"path" : [(7, 3), (3, 2), (2, 5)]}]  
+        [1, {"path" : [(7, 3), (3, 2), (2, 5)]}],
+        [1, {"path" : [(0, 3), (3, 2), (2, 6)]}],
+        [1, {"path" : [(0, 3), (3, 7)]}]
+
     ]  
 })  
 trafficRoads1 = [[togliattiCity.roads[(0, 1)], togliattiCity.roads[(4, 1)]], [togliattiCity.roads[(2, 1)]]]

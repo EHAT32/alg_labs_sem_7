@@ -54,7 +54,10 @@ class Vehicle:
         self.a = self.aMax * (1 - (self.v / self.vMax) ** 4 - alpha ** 2)  
   
         if self.stopped:   
-            self.a = - self.bMax * self.v / self.vMax  
+            self.a = - self.bMax * self.v / self.vMax
+
+        if self.v > self.vMax:
+            self.v = self.vMax  
 
     def decideToRide(self):
         self.moodToRide -= 5
