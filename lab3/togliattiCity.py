@@ -9,12 +9,12 @@ togliattiCity.createRoadsFromGraph(togliattiGraph)
 togliattiCity.createGen({  
     'vehicleRate' : 40,  
     'vehicles' : [  
-        [1, {"path" : [(0, 1)]}],  
-        [1, {"path" : [(1, 2)]}],  
-        [1, {"path" : [(7, 3)]}],  
-        [1, {"path" : [(2, 3)]}],  
-        [1, {"path" : [(3, 2)]}],
-        [1, {"path" : [(4, 1)]}]  
+        [1, {"path" : [(0, 1), (1, 2), (2, 5)]}],  
+        [1, {"path" : [(7, 3), (3, 2), (2, 1), (1, 4)]}],  
+        [1, {"path" : [(4, 1), (1, 2), (2, 6)]}],  
+        [1, {"path" : [(6, 2), (2, 5)]}],  
+        [1, {"path" : [(6, 2), (2, 3), (3, 0)]}],
+        [1, {"path" : [(7, 3), (3, 2), (2, 5)]}]  
     ]  
 })  
 trafficRoads1 = [[togliattiCity.roads[(0, 1)], togliattiCity.roads[(4, 1)]], [togliattiCity.roads[(2, 1)]]]
