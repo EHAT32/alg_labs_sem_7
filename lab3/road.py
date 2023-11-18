@@ -44,7 +44,7 @@ class Road:
                 # In case the traffic signal is green or does not exist  
                 # Then let the vehicles pass    
                 if nextRoad is not None:
-                    if len(nextRoad.vehicles) >= nextRoadAmount and self.vehicles[0].x >= self.length - self.trafficSignal.stopDistance / 2:
+                    if len(nextRoad.vehicles) >= nextRoadAmount and self.vehicles[0].x >= self.length - self.trafficSignal.stopDistance * 0.6:
                         self.vehicles[0].v = 0
                         self.vehicles[0].stopVehicle()
                         # for the_vehicle in self.vehicles:
