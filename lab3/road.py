@@ -1,6 +1,27 @@
 from scipy.spatial import distance
 from collections import deque
 
+class CapacityTracker:
+    def __init__(self):
+        self.capacity = 0
+        self.startTime = None
+        self.duration = 0
+
+    def updateCapacity(self, newCapacity, currentTime):
+        if newCapacity >= 90 and self.capacity < 90:  # Capacity just crossed 90
+            self.startTime = currentTime
+        elif newCapacity < 90 and self.capacity >= 90:  # Capacity just dropped below 90
+            if self.startTime is not None:
+                self.duration = currentTime - self.startTime
+                self.startTime = None
+
+        self.capacity = newCapacity
+
+    def getDurationOver90(self, currentTime):
+        if self.startTime is not None:  # If capacity is currently over 80
+            return self.duration + (currentTime - self.startTime)
+        else:
+            return self.duration
 class Road:
     def __init__(self, start, end, startCross, endCross) -> None:
         self.start = start
@@ -8,6 +29,7 @@ class Road:
         self.startCross = startCross #idx of a vertex from the graph
         self.endCross = endCross
         self.initProperties()
+        self.capacityTracker = CapacityTracker()
 
     def initProperties(self):
         self.length = distance.euclidean(self.start, self.end)
@@ -29,9 +51,11 @@ class Road:
         return True  
 
     #update vehicles of the road
-    def update(self, dt, nextRoad = None, nextRoadAmount = 12):  
+    def update(self, dt, currentTime, nextRoad = None, nextRoadAmount = 12):  
         num = len(self.vehicles)  
-          
+        carLen = 1.5
+        capacity = carLen * num / self.length * 100
+        self.capacityTracker.updateCapacity(capacity, currentTime)
         if num > 0:  
             # Updating the first vehicle  
             self.vehicles[0].update(None, dt)  

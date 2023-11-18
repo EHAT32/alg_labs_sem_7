@@ -62,9 +62,10 @@ class Simulator:
                 vehicle = road.vehicles[0]
                 nextRoad = self.roads[vehicle.path[vehicle.currentRoadIndex + 1]]
             else:
-                road.update(self.dt)
+                road.update(self.dt, self.t)
                 nextRoad = None
-            road.update(self.dt, nextRoad)  
+            road.update(self.dt, self.t, nextRoad) 
+             
   
         # Checking the roads for out of bounds vehicle  
         for roadKey in self.roads:  

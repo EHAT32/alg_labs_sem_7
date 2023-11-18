@@ -206,6 +206,9 @@ class Window:
                     additionalTime = 0
                 timeToDissolve = round((road.length - car.x) / car.vMax + additionalTime, 1)
                 self.the_text('dissolving in: ' + str(timeToDissolve), x + 200, y)
+                if capacity >= 90:
+                    duration = round(road.capacityTracker.getDurationOver90(self.simulate.t), 1)
+                    self.the_text('duration: ' + str(duration), x + 400, y)
             y += 20
             if y >= self.the_height:
                 y = self.the_height / 2
