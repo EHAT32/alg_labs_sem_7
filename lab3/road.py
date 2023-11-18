@@ -14,11 +14,12 @@ class CapacityTracker:
             if self.startTime is not None:
                 self.duration = currentTime - self.startTime
                 self.startTime = None
-
+        elif newCapacity < 90:
+            self.duration = 0
         self.capacity = newCapacity
 
     def getDurationOver90(self, currentTime):
-        if self.startTime is not None:  # If capacity is currently over 80
+        if self.startTime is not None:  # If capacity is currently over 90
             return self.duration + (currentTime - self.startTime)
         else:
             return self.duration
