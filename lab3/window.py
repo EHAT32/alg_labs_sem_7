@@ -159,7 +159,7 @@ class Window:
 
     def findTopLoadedRoads(self):
         roads = self.simulate.roads
-        capacityDict = {road:len(self.simulate.roads[road].vehicles) for road in self.simulate.roads if len(self.simulate.roads[road].vehicles) != 0}
+        capacityDict = {road:len(roads[road].vehicles) for road in roads if len(roads[road].vehicles) != 0}
         return sorted(capacityDict.items(), key = lambda x : x[1], reverse=True)
 
     def drawStatus(self):  
