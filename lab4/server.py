@@ -7,8 +7,8 @@ class Server:
         self.pool = []
         
     def addClient(self, client : Client) -> None:
-        if self.clients[client.id] is not None:
-            print('Client is already here!')
+        if client.id in self.clients:
+            print(f'Client {client.id} is already here!')
             return
         else:
             self.clients[client.id] = client
@@ -18,7 +18,7 @@ class Server:
             self.addClient(client)
             
     #activity
-    def signUpClient(self, ids : List[int]) -> None:
+    def signUpClients(self, ids : List[int]) -> None:
         for clientId in ids:
             client = self.clients[clientId]
             if client.isSignedUp:
@@ -30,3 +30,7 @@ class Server:
         for client in self.clients.itervalues():
             if client.isSignedUp:
                 print(f'Client {client.id}')
+                
+    def showAllClients(self) -> None:
+        for client in self.clients.values():
+            print(f'Client {client.id} signed up: {client.isSignedUp}')
