@@ -1,5 +1,6 @@
 from client import Client
 from typing import List
+import time
 
 class Server:
     def __init__(self) -> None:
@@ -36,4 +37,6 @@ class Server:
             print(f'Client {client.id} signed up: {client.isSignedUp}')
             
     def showMainPage(self) -> None:
+        showPageSleepTime = 1
         print('There it is, watch it')
+        time.sleep(showPageSleepTime)
