@@ -34,3 +34,6 @@ class Server:
     def showAllClients(self) -> None:
         for client in self.clients.values():
             print(f'Client {client.id} signed up: {client.isSignedUp}')
+            
+    def showMainPage(self) -> None:
+        print('There it is, watch it')
