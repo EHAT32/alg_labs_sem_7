@@ -21,7 +21,12 @@ class Server:
     def signUpClient(self, ids : List[int]) -> None:
         for clientId in ids:
             client = self.clients[clientId]
-            if client.isSignedUp():
+            if client.isSignedUp:
                 print(f'Client {clientId} is already signed up!')
             else:
-                client.signedUp = True
+                client.isSignedUp = True
+                
+    def showSignedUpClients(self) -> None:
+        for client in self.clients.itervalues():
+            if client.isSignedUp:
+                print(f'Client {client.id}')
