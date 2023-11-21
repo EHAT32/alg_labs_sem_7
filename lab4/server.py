@@ -4,7 +4,7 @@ from typing import List
 class Server:
     def __init__(self) -> None:
         self.clients = {}
-        self.pool = []
+        self.pool = [function]
         
     def addClient(self, client : Client) -> None:
         if client.id in self.clients:
