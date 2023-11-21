@@ -18,6 +18,13 @@ class Server:
         for client in clients:
             self.addClient(client)
             
+    def addTask(self, task : function) -> None:
+        self.pool.append(task)
+        
+    def addTasks(self, tasks : List[function]) -> None:
+        for task in tasks:
+            self.addTask(task)
+            
     #activity
     def signUpClients(self, ids : List[int]) -> None:
         for clientId in ids:
