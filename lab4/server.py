@@ -26,13 +26,16 @@ class Server:
             self.addTask(task)
             
     #activity
+    def signUpClient(self, id : int) -> None:
+        client = self.clients[id]
+        if client.isSignedUp:
+            print(f'Client {id} is already signed up!')
+        else:
+            client.isSignedUp = True
+    
     def signUpClients(self, ids : List[int]) -> None:
-        for clientId in ids:
-            client = self.clients[clientId]
-            if client.isSignedUp:
-                print(f'Client {clientId} is already signed up!')
-            else:
-                client.isSignedUp = True
+        for id in ids:
+            self.signUpClient(id)
                 
     def showSignedUpClients(self) -> None:
         for client in self.clients.itervalues():
