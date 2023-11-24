@@ -5,7 +5,7 @@ import time
 class Server:
     def __init__(self) -> None:
         self.clients = {}
-        self.pool = [function]
+        self.pool = []
         
     def addClient(self, client : Client) -> None:
         if client.id in self.clients:
@@ -13,15 +13,16 @@ class Server:
             return
         else:
             self.clients[client.id] = client
+            client.server = self
         
     def addClients(self, clients : List[Client]) -> None:
         for client in clients:
             self.addClient(client)
             
-    def addTask(self, task : function) -> None:
+    def addTask(self, task) -> None:
         self.pool.append(task)
         
-    def addTasks(self, tasks : List[function]) -> None:
+    def addTasks(self, tasks) -> None:
         for task in tasks:
             self.addTask(task)
             
