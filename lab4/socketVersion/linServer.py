@@ -26,10 +26,3 @@ class ServerLinear(Server):
         client_socket.sendall(response)
         client_socket.close()
         print(f'Client {cid} served - {datetime.now().time()}')
-
-
-# if __name__ == "__main__":
-#     server = ServerLinear()
-#     server.run_server()
-#     print('server is running')
-    # print(server.load)
